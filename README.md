@@ -1,4 +1,4 @@
-# time-recording-button
+#log-horizon
 
 i wanted to track how much time i spent on a project, without having to have access to a distraction rectangle. 
 
