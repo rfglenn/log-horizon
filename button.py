@@ -1,5 +1,6 @@
 import time
 import sys
+import json
 from datetime import datetime
 from gpiozero import LED
 from gpiozero import Button
@@ -8,6 +9,10 @@ import requests
 
 button = Button(26)
 led = LED(12)
+
+def enqueue_for_later(data):
+    with open('failed_requests.txt', 'a') as f:
+        f.write(json.dumps(data)+'\n')
 
 
 def main():
@@ -24,7 +29,9 @@ def main():
             'started': start.isoformat(),
             'ended': end.isoformat()
         }
-        requests.post('http://192.168.0.118/intervals/add', json=data)
+        resp = requests.post('http://192.168.0.118:5000/intervals/add', json=data)
+        if resp.status_code != requests.codes.ok:
+            enqueue_for_later(data)
         time.sleep(0.3)
         
 
