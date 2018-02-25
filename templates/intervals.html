@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<title>Intervals</title>
+<style>
+table {
+  border-collapse: separate;
+  border-spacing: 50px 0;
+}
+</style>
+
+<script src="http://d3js.org/d3.v4.js"></script>
+<script>
+let intervals = [
+{% for interval in intervals %}
+{
+    "started": "{{ interval.started }}",
+    "ended": "{{ interval.ended }}"
+},
+{% endfor %}
+];
+
+
+</script>
+<script>
+</script>
+</head>
+<body>
+{% if day %}
+Study intervals for {{ day }}
+{% else %}
+All study intervals
+{% endif %}
+<br /> 
+Total time studied: {{ total_duration }}
+<table>
+<tr>
+<th>ID</th>
+<th>Start</th>
+<th>End</th>
+<th>Duration</th>
+</tr>
+{% for interval in intervals %}
+<tr>
+    <td>{{ interval.id }}</td>
+    <td>{{ interval.started }}</td>
+    <td>{{ interval.ended }}</td>
+    <td>{{ interval.duration }}</td>
+</tr>
+{% endfor %}
+</body>
+</html>
