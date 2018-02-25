@@ -10,7 +10,7 @@ class Timestamp(types.TypeDecorator):
         return int(value.timestamp() * 1000)
 
     def process_result_value(self, value, dialect):
-        return datetime.datetime.fromtimestamp(value / 1000)
+        return datetime.fromtimestamp(value / 1000)
 
 
 db = SQLAlchemy()

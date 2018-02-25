@@ -3,12 +3,11 @@ import sys
 from datetime import datetime
 from gpiozero import LED
 from gpiozero import Button
-from db import Session
-from model import Interval
+
+import requests
 
 button = Button(26)
 led = LED(12)
-session = Session()
 
 
 def main():
@@ -21,8 +20,11 @@ def main():
         button.wait_for_press()
         led.off()
         end = datetime.now()
-        session.add(Interval(started=start,ended=end))
-        session.commit()
+        data = {
+            'started': start.isoformat(),
+            'ended': end.isoformat()
+        }
+        requests.post('http://192.168.0.118/intervals/add', json=data)
         time.sleep(0.3)
         
 
