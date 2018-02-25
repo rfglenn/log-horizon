@@ -3,3 +3,4 @@ venv
 study.db
 __pycache__/
 *.pyc
+study.db.old
